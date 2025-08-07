@@ -41,6 +41,7 @@
 <body>
 
     <div class="container">
+        <img src="bitcoin-booters.png" alt="Bitcoin Boomers Logo" style="max-width: 200px; height: auto;">
         <h1>Bitcoin Boomers League</h1>
         <p>Current Prize Pool Value Tracker</p>
 
@@ -62,9 +63,9 @@
     <script>
         // *** USER-EDITABLE VARIABLES ***
         // Update these values once after your league's draft
-        const draftDayBtcPrice = 117198.30; // Example price: $60,000.00
-        const totalBuyInUSD = 320; // $20 buy-in x 16 people
-        const secondPlaceBuyInUSD = 20; // Single $20 buy-in for second place
+        const draftDayBtcPrice = 117198.30;
+        const totalBuyInUSD = 320;
+        const secondPlaceBuyInUSD = 20;
 
         // Calculate the fixed BTC amounts
         const totalBtcInPool = totalBuyInUSD / draftDayBtcPrice;
@@ -72,7 +73,7 @@
         const winnerBtc = totalBtcInPool - secondPlaceBtc;
 
         // Display the fixed values on the page
-        document.getElementById('initial-btc-price').innerText = draftDayBtcPrice.toLocaleString('en-US');
+        document.getElementById('initial-btc-price').innerText = draftDayBtcPrice.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
         document.getElementById('total-btc').innerText = totalBtcInPool.toFixed(6);
 
         // Fetch the current BTC price and update the prize values
