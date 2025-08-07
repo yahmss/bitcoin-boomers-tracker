@@ -1,139 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bitcoin Booters Prize Tracker</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f2f5;
-            color: #333;
-            text-align: center;
-            padding: 10px;
-        }
-        .container {
-            max-width: 600px;
-            margin: auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #f7931a;
-            margin-bottom: 5px;
-        }
-        .logo {
-            max-width: 150px;
-            height: auto;
-            margin-bottom: 15px;
-        }
-        .quote-box {
-            margin-top: 10px;
-            margin-bottom: 25px;
-            font-style: italic;
-            padding: 10px;
-            background-color: #e9ecef;
-            border-left: 5px solid #6c757d;
-        }
-        .prize-info {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            margin-top: 20px;
-            text-align: left;
-        }
-        .prize-card {
-            flex-basis: 48%; /* Adjust for spacing */
-            margin-bottom: 15px;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-        .prize-value {
-            font-size: 1.8em;
-            font-weight: bold;
-        }
-        .info-label {
-            font-weight: bold;
-            margin-top: 10px;
-        }
-        .countdown {
-            font-size: 1.5em;
-            font-weight: bold;
-            margin-top: 20px;
-            color: #dc3545;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitcoin Booters Prize Tracker</title>
+    <!-- Tailwind CSS CDN for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom font import */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
         .gain {
-            color: #28a745;
+            color: #22c55e; /* Tailwind green-500 */
         }
         .loss {
-            color: #dc3545;
+            color: #ef4444; /* Tailwind red-500 */
         }
-        .change {
-            font-size: 0.8em;
-            margin-top: 5px;
+        /* Custom spinner for loading state */
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border-left-color: #f7931a;
+            animation: spin 1s ease infinite;
         }
-        @media (max-width: 480px) {
-            .prize-card {
-                flex-basis: 100%;
-            }
-        }
-    </style>
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </head>
-<body>
+<body class="bg-slate-100 text-slate-800 p-4 sm:p-8 flex items-center justify-center min-h-screen">
 
-    <div class="container">
-        <img src="bitcoin-booters.png" alt="Bitcoin Booters Logo" class="logo">
-        <h1>Bitcoin Booters League</h1>
+    <div class="container max-w-2xl w-full bg-white p-6 sm:p-8 rounded-xl shadow-xl border border-slate-200">
+        <!-- Header -->
+        <div class="text-center">
+            <!-- Note: Replace this with your actual logo URL -->
+            <img src="https://placehold.co/150x50/f7931a/ffffff?text=LOGO" alt="Bitcoin Booters Logo" class="mx-auto mb-4 rounded-lg">
+            <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-2">Bitcoin Booters League</h1>
+            <p class="text-lg text-slate-500 mb-6">Live Prize Tracker</p>
+        </div>
 
-        <div class="quote-box">
-            <p id="quote-display"></p>
-        </div>
+        <!-- Quote of the Day -->
+        <div class="bg-slate-50 p-4 rounded-lg shadow-sm mb-6 border-l-4 border-l-slate-400 italic text-slate-600">
+            <p id="quote-display" class="text-sm">"Loading a wise quote..."</p>
+        </div>
 
-        <p class="countdown" id="countdown-timer">Loading countdown...</p>
+        <!-- Countdown Timer -->
+        <div class="text-center bg-red-100 text-red-700 p-3 rounded-lg font-bold text-lg mb-6 shadow-md">
+            <p id="countdown-timer">Loading countdown...</p>
+        </div>
 
-        <div class="prize-info">
-            <div class="prize-card">
-                <span class="info-label">Current Winner Prize:</span>
-                <div class="prize-value" id="winner-prize-value">Loading...</div>
-                <div class="change" id="winner-change"></div>
-            </div>
-            <div class="prize-card">
-                <span class="info-label">Current 2nd Place Prize:</span>
-                <div class="prize-value" id="second-place-prize-value">Loading...</div>
-                <div class="change" id="second-place-change"></div>
-            </div>
-            <div class="prize-card">
-                <span class="info-label">Initial BTC Price:</span>
-                <div id="initial-btc-price">--</div>
-            </div>
-            <div class="prize-card">
-                <span class="info-label">Total BTC in Pool:</span>
-                <div id="total-btc">--</div>
-            </div>
-        </div>
+        <!-- Prize and Tracker Info Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Current Winner Prize Card -->
+            <div class="bg-white p-5 rounded-lg shadow-md border border-slate-200">
+                <span class="block text-sm font-semibold text-slate-500 mb-2">Current Winner Prize:</span>
+                <div class="flex items-center justify-between mb-2">
+                    <div id="winner-prize-value" class="text-3xl font-bold text-slate-900">Loading...</div>
+                    <div id="winner-loading" class="spinner"></div>
+                </div>
+                <!-- Stock-like tracker display -->
+                <div class="flex justify-between items-center text-sm">
+                    <div class="flex flex-col">
+                        <span class="text-slate-500">Initial:</span>
+                        <span id="initial-winner-prize" class="font-medium text-slate-800">--</span>
+                    </div>
+                    <div class="flex flex-col text-right">
+                        <span id="winner-change-value" class="font-medium">--</span>
+                        <span id="winner-change-percent" class="font-medium">--</span>
+                    </div>
+                </div>
+            </div>
 
-    </div>
+            <!-- Current 2nd Place Prize Card -->
+            <div class="bg-white p-5 rounded-lg shadow-md border border-slate-200">
+                <span class="block text-sm font-semibold text-slate-500 mb-2">Current 2nd Place Prize:</span>
+                <div class="flex items-center justify-between mb-2">
+                    <div id="second-place-prize-value" class="text-3xl font-bold text-slate-900">Loading...</div>
+                    <div id="second-loading" class="spinner"></div>
+                </div>
+                <!-- Stock-like tracker display -->
+                <div class="flex justify-between items-center text-sm">
+                    <div class="flex flex-col">
+                        <span class="text-slate-500">Initial:</span>
+                        <span id="initial-second-place-prize" class="font-medium text-slate-800">--</span>
+                    </div>
+                    <div class="flex flex-col text-right">
+                        <span id="second-place-change-value" class="font-medium">--</span>
+                        <span id="second-place-change-percent" class="font-medium">--</span>
+                    </div>
+                </div>
+            </div>
 
-    <script>
-        // *** USER-EDITABLE VARIABLES ***
-        const draftDayBtcPrice = 117198.30;
-        const totalBuyInUSD = 320;
-        const secondPlaceBuyInUSD = 20;
+            <!-- Other Info Cards -->
+            <div class="bg-white p-5 rounded-lg shadow-md border border-slate-200">
+                <span class="block text-sm font-semibold text-slate-500 mb-2">Initial BTC Price:</span>
+                <div id="initial-btc-price" class="text-xl font-bold text-slate-900">--</div>
+            </div>
+            <div class="bg-white p-5 rounded-lg shadow-md border border-slate-200">
+                <span class="block text-sm font-semibold text-slate-500 mb-2">Total BTC in Pool:</span>
+                <div id="total-btc" class="text-xl font-bold text-slate-900">--</div>
+            </div>
+        </div>
 
-        const totalBtcInPool = totalBuyInUSD / draftDayBtcPrice;
-        const secondPlaceBtc = secondPlaceBuyInUSD / draftDayBtcPrice;
-        const winnerBtc = totalBtcInPool - secondPlaceBtc;
-        const winnerPrizeInitialValue = winnerBtc * draftDayBtcPrice;
-        const secondPlacePrizeInitialValue = secondPlaceBtc * draftDayBtcPrice;
+        <!-- Last Updated Timestamp -->
+        <div class="text-center mt-6 text-sm text-slate-500">
+            <p id="last-updated">Last Updated: --</p>
+        </div>
 
+    </div>
 
-        document.getElementById('initial-btc-price').innerText = '$' + draftDayBtcPrice.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-        document.getElementById('total-btc').innerText = totalBtcInPool.toFixed(6) + ' BTC';
+    <script>
+        // *** USER-EDITABLE VARIABLES ***
+        // These are the initial values for your league.
+        const draftDayBtcPrice = 117198.30;
+        const totalBuyInUSD = 320; // Total USD collected
+        const secondPlaceBuyInUSD = 20; // USD allocated to 2nd place
 
+        // Calculate the initial BTC amounts based on the draft day price
+        const totalBtcInPool = totalBuyInUSD / draftDayBtcPrice;
+        const secondPlaceBtc = secondPlaceBuyInUSD / draftDayBtcPrice;
+        const winnerBtc = totalBtcInPool - secondPlaceBtc;
+
+        // Calculate the initial USD value of each prize for comparison
+        const initialWinnerPrizeUSD = winnerBtc * draftDayBtcPrice;
+        const initialSecondPlacePrizeUSD = secondPlaceBtc * draftDayBtcPrice;
+
+        // Display the static initial info
+        document.getElementById('initial-btc-price').innerText = '$' + draftDayBtcPrice.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('total-btc').innerText = totalBtcInPool.toFixed(6) + ' BTC';
+        document.getElementById('initial-winner-prize').innerText = '$' + initialWinnerPrizeUSD.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('initial-second-place-prize').innerText = '$' + initialSecondPlacePrizeUSD.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+        // List of quotes to display randomly
 const quotes = [
     // Bitcoin & Investing
     "The stock market is a device for transferring money from the impatient to the patient. – Warren Buffett",
@@ -177,73 +180,125 @@ const quotes = [
     "Success is stumbling from failure to failure with no loss of enthusiasm. – Winston Churchill",
     "Our greatest weakness lies in giving up. The most certain way to succeed is always to try just one more time. – Thomas A. Edison"
 ];
-        function displayRandomQuote() {
-            const randomIndex = Math.floor(Math.random() * quotes.length);
-            document.getElementById('quote-display').innerText = quotes[randomIndex];
-        }
 
-        async function fetchBtcPrice() {
-            const api_url = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd';
-            try {
-                const response = await fetch(api_url);
-                const data = await response.json();
-                const currentBtcPrice = data.bitcoin.usd;
+        // Function to display a random quote
+        function displayRandomQuote() {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            document.getElementById('quote-display').innerText = `"${quotes[randomIndex]}"`;
+        }
 
-                // Calculate current prize values
-                const winnerPrizeValue = winnerBtc * currentBtcPrice;
-                const secondPlacePrizeValue = secondPlaceBtc * currentBtcPrice;
+        // Function to update the prize display with stock-like ticker info
+        function updatePrizeTicker(currentValue, initialValue, valueElementId, changeElementId, percentElementId, loadingElementId) {
+            const valueDisplay = document.getElementById(valueElementId);
+            const changeDisplay = document.getElementById(changeElementId);
+            const percentDisplay = document.getElementById(percentElementId);
+            const loadingSpinner = document.getElementById(loadingElementId);
 
-                // Calculate change for winner prize
-                const winnerChange = winnerPrizeValue - winnerPrizeInitialValue;
-                const winnerPercentageChange = (winnerChange / winnerPrizeInitialValue) * 100;
-                const winnerChangeElement = document.getElementById('winner-change');
-                winnerChangeElement.innerHTML = `
-                    <span class="${winnerChange >= 0 ? 'gain' : 'loss'}">
-                        ${winnerChange >= 0 ? '▲' : '▼'} $${Math.abs(winnerChange).toFixed(2)} (${winnerPercentageChange.toFixed(2)}%)
-                    </span>
-                `;
+            // Hide the loading spinner
+            loadingSpinner.style.display = 'none';
 
-                // Calculate change for second place prize
-                const secondPlaceChange = secondPlacePrizeValue - secondPlacePrizeInitialValue;
-                const secondPlacePercentageChange = (secondPlaceChange / secondPlacePrizeInitialValue) * 100;
-                const secondPlaceChangeElement = document.getElementById('second-place-change');
-                secondPlaceChangeElement.innerHTML = `
-                    <span class="${secondPlaceChange >= 0 ? 'gain' : 'loss'}">
-                        ${secondPlaceChange >= 0 ? '▲' : '▼'} $${Math.abs(secondPlaceChange).toFixed(2)} (${secondPlacePercentageChange.toFixed(2)}%)
-                    </span>
-                `;
+            const changeUSD = currentValue - initialValue;
+            const changePercent = (changeUSD / initialValue) * 100;
 
-                document.getElementById('winner-prize-value').innerText = '$' + winnerPrizeValue.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-                document.getElementById('second-place-prize-value').innerText = '$' + secondPlacePrizeValue.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-            } catch (error) {
-                console.error('Error fetching BTC price:', error);
-                document.getElementById('winner-prize-value').innerText = 'Error loading';
-                document.getElementById('second-place-prize-value').innerText = 'Error loading';
-            }
-        }
+            // Format values
+            const formattedCurrentValue = '$' + currentValue.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            const formattedChangeUSD = (changeUSD >= 0 ? '+' : '-') + '$' + Math.abs(changeUSD).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            const formattedChangePercent = (changePercent >= 0 ? '+' : '-') + Math.abs(changePercent).toFixed(2) + '%';
 
-        const championshipDate = new Date('January 4, 2026 23:59:59 EST');
-        function startCountdown() {
-            const now = new Date().getTime();
-            const distance = championshipDate - now;
+            // Update UI with formatted values
+            valueDisplay.innerText = formattedCurrentValue;
+            changeDisplay.innerText = formattedChangeUSD;
+            percentDisplay.innerText = formattedChangePercent;
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            // Apply color based on gain/loss
+            if (changeUSD > 0) {
+                changeDisplay.classList.add('gain');
+                percentDisplay.classList.add('gain');
+            } else if (changeUSD < 0) {
+                changeDisplay.classList.add('loss');
+                percentDisplay.classList.add('loss');
+            } else {
+                changeDisplay.classList.remove('gain', 'loss');
+                percentDisplay.classList.remove('gain', 'loss');
+            }
+        }
 
-            document.getElementById('countdown-timer').innerText = `Time left: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+        // Main function to fetch the BTC price and update all prize info
+        async function fetchAndRenderData() {
+            const api_url = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd';
+            try {
+                // Show loading spinners before fetching
+                document.getElementById('winner-loading').style.display = 'block';
+                document.getElementById('second-loading').style.display = 'block';
 
-            if (distance < 0) {
-                clearInterval(countdownInterval);
-                document.getElementById('countdown-timer').innerText = "CHAMPIONSHIP HAS ENDED!";
-            }
-        }
+                const response = await fetch(api_url);
+                const data = await response.json();
+                const currentBtcPrice = data.bitcoin.usd;
 
-        fetchBtcPrice();
-        displayRandomQuote();
-        const countdownInterval = setInterval(startCountdown, 1000);
-    </script>
+                // Calculate current prize values in USD
+                const winnerPrizeValue = winnerBtc * currentBtcPrice;
+                const secondPlacePrizeValue = secondPlaceBtc * currentBtcPrice;
+
+                // Update the winner prize card
+                updatePrizeTicker(
+                    winnerPrizeValue,
+                    initialWinnerPrizeUSD,
+                    'winner-prize-value',
+                    'winner-change-value',
+                    'winner-change-percent',
+                    'winner-loading'
+                );
+
+                // Update the 2nd place prize card
+                updatePrizeTicker(
+                    secondPlacePrizeValue,
+                    initialSecondPlacePrizeUSD,
+                    'second-place-prize-value',
+                    'second-place-change-value',
+                    'second-place-change-percent',
+                    'second-loading'
+                );
+
+                // Update the last updated timestamp
+                const now = new Date();
+                document.getElementById('last-updated').innerText = `Last Updated: ${now.toLocaleTimeString()}`;
+
+            } catch (error) {
+                console.error('Error fetching BTC price:', error);
+                document.getElementById('winner-prize-value').innerText = 'Error loading';
+                document.getElementById('second-place-prize-value').innerText = 'Error loading';
+            }
+        }
+
+        // Function to handle the championship countdown
+        const championshipDate = new Date('January 4, 2026 23:59:59 EST');
+        function startCountdown() {
+            const now = new Date().getTime();
+            const distance = championshipDate - now;
+
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById('countdown-timer').innerText = "CHAMPIONSHIP HAS ENDED!";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown-timer').innerText = `Time left: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+        
+        // Initial calls on page load
+        displayRandomQuote();
+        fetchAndRenderData();
+        startCountdown();
+
+        // Set intervals to refresh data
+        const countdownInterval = setInterval(startCountdown, 1000);
+        const dataRefreshInterval = setInterval(fetchAndRenderData, 60000); // Refresh prize data every 60 seconds
+    </script>
 
 </body>
 </html>
