@@ -121,16 +121,48 @@
         document.getElementById('total-btc').innerText = totalBtcInPool.toFixed(6) + ' BTC';
 
         const quotes = [
-            "The stock market is a device for transferring money from the impatient to the patient. – Warren Buffett",
-            "Bitcoin is a technological tour de force. – Bill Gates",
-            "Be fearful when others are greedy and greedy when others are fearful. – Warren Buffett",
-            "The journey of a thousand miles begins with a single step. – Lao Tzu",
-            "Every strike brings me closer to the next home run. – Babe Ruth",
-            "You make most of your money in a bear market, you just don't realize it at the time. – Shelby Cullom Davis",
-            "Bitcoin fixes this. – Jordan Peterson",
-            "Winning isn't everything, but wanting to win is. – Vince Lombardi",
-            "Doubt kills more dreams than failure ever will. – Suzy Kassem"
-        ];
+    // Bitcoin & Investing
+    "The stock market is a device for transferring money from the impatient to the patient. – Warren Buffett",
+    "Bitcoin is a technological tour de force. – Bill Gates",
+    "Be fearful when others are greedy and greedy when others are fearful. – Warren Buffett",
+    "It's not about timing the market; it's about time in the market.",
+    "Rule No. 1: Never lose money. Rule No. 2: Never forget rule No. 1. – Warren Buffett",
+    "Bitcoin fixes this. – Jordan Peterson",
+    "Investing should be more like watching paint dry or watching grass grow. – Paul Samuelson",
+    "The art of investment is the discipline of inaction in the absence of a good opportunity. – Li Lu",
+    "You make most of your money in a bear market, you just don't realize it at the time. – Shelby Cullom Davis",
+    "The biggest risk of all is not taking one. – Mellody Hobson",
+    "The world is full of foolish gamblers and they will not do as well as the patient investors. – Charlie Munger",
+    "Price is what you pay. Value is what you get. – Warren Buffett",
+    "Patience is a superpower. – Jake Rosser",
+    "In the short run, the market is a voting machine, but in the long run it is a weighing machine. – Benjamin Graham",
+    "Success isn't measured by money or power or social rank. Success is measured by your discipline and inner peace. – Mike Ditka",
+    "Never invest in a business you cannot understand. – Warren Buffett",
+    
+    // Fantasy Football & Competition
+    "God bless fantasy football. There are many things a man can do with his time… this is better than those things. – Pete, from 'The League'",
+    "You cannot worry about the playoffs if you do not make the playoffs. – Omar Little",
+    "There is no greater threat to league integrity than an uncommitted owner. – Ruxin, from 'The League'",
+    "In fantasy football, the most important player is the one on your bench with the most upside.",
+    "Winning isn't everything, but wanting to win is. – Vince Lombardi",
+    "Winning isn't getting ahead of others. It's getting ahead of yourself. – Roger Staubach",
+    "You don't need more '40-degree days' in your fantasy lineup. – Stringer Bell",
+    "It's not whether you get knocked down, it's whether you get back up. – Vince Lombardi",
+    "Nobody who ever gave his best regretted it. – George S. Halas",
+    "Effort will never be questioned. – Jalen Hurts",
+    "A champion is simply someone who did not give up when they wanted to. – Tom Landry",
+    
+    // Life & Motivation
+    "Doubt kills more dreams than failure ever will. – Suzy Kassem",
+    "The best way to predict the future is to create it. – Peter Drucker",
+    "The journey of a thousand miles begins with a single step. – Lao Tzu",
+    "Every strike brings me closer to the next home run. – Babe Ruth",
+    "It's not the will to win that matters. It's the will to prepare to win that matters. – Paul 'Bear' Bryant",
+    "The only place success comes before work is in the dictionary. – Vince Lombardi",
+    "You can't be that kid standing at the top of the waterslide, overthinking it. You have to go down the chute. – Tina Fey",
+    "Success is stumbling from failure to failure with no loss of enthusiasm. – Winston Churchill",
+    "Our greatest weakness lies in giving up. The most certain way to succeed is always to try just one more time. – Thomas A. Edison"
+];
         function displayRandomQuote() {
             const randomIndex = Math.floor(Math.random() * quotes.length);
             document.getElementById('quote-display').innerText = quotes[randomIndex];
