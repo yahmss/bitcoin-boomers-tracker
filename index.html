@@ -38,8 +38,8 @@
     <div class="container max-w-2xl w-full bg-white p-6 sm:p-8 rounded-xl shadow-xl border border-slate-200">
         <!-- Header -->
         <div class="text-center">
-            <!-- Note: Replace this with your actual logo URL -->
-            <img src="https://github.com/yahmss/bitcoin-boomers-tracker/blob/main/bitcoin-booters.png" alt="Bitcoin Booters Logo" class="mx-auto mb-4 rounded-lg">
+            <!-- Logo size has been reduced using the w-40 Tailwind class -->
+            <img src="https://raw.githubusercontent.com/yahmss/bitcoin-boomers-tracker/main/bitcoin-booters.png" alt="Bitcoin Booters Logo" class="mx-auto mb-4 w-40 rounded-lg">
             <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-2">Bitcoin Booters League</h1>
             <p class="text-lg text-slate-500 mb-6">Live Prize Tracker</p>
         </div>
@@ -137,7 +137,7 @@
         document.getElementById('initial-second-place-prize').innerText = '$' + initialSecondPlacePrizeUSD.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
         // List of quotes to display randomly
-const quotes = [
+        const quotes = [
     // Bitcoin & Investing
     "The stock market is a device for transferring money from the impatient to the patient. – Warren Buffett",
     "Bitcoin is a technological tour de force. – Bill Gates",
@@ -180,7 +180,6 @@ const quotes = [
     "Success is stumbling from failure to failure with no loss of enthusiasm. – Winston Churchill",
     "Our greatest weakness lies in giving up. The most certain way to succeed is always to try just one more time. – Thomas A. Edison"
 ];
-
         // Function to display a random quote
         function displayRandomQuote() {
             const randomIndex = Math.floor(Math.random() * quotes.length);
@@ -214,9 +213,13 @@ const quotes = [
             if (changeUSD > 0) {
                 changeDisplay.classList.add('gain');
                 percentDisplay.classList.add('gain');
+                changeDisplay.classList.remove('loss');
+                percentDisplay.classList.remove('loss');
             } else if (changeUSD < 0) {
                 changeDisplay.classList.add('loss');
                 percentDisplay.classList.add('loss');
+                changeDisplay.classList.remove('gain');
+                percentDisplay.classList.remove('gain');
             } else {
                 changeDisplay.classList.remove('gain', 'loss');
                 percentDisplay.classList.remove('gain', 'loss');
