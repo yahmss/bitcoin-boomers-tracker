@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bitcoin Boomers League Prize Tracker</title>
+    <title>The Bitcoin Booters Prize Tracker</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -32,6 +32,13 @@
             color: #28a745; /* Green for value */
             font-weight: bold;
         }
+        .quote-box {
+            margin-top: 25px;
+            font-style: italic;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-left: 5px solid #6c757d;
+        }
         .loading {
             font-style: italic;
             color: #6c757d;
@@ -41,8 +48,8 @@
 <body>
 
     <div class="container">
-        <img src="bitcoin-booters.png" alt="Bitcoin Boomers Logo" style="max-width: 200px; height: auto;">
-        <h1>Bitcoin Boomers League</h1>
+        <img src="bitcoin-booters.png" alt="The Bitcoin Booters Logo" style="max-width: 200px; height: auto;">
+        <h1>The Bitcoin Booters League</h1>
         <p>Current Prize Pool Value Tracker</p>
 
         <div class="prize-info">
@@ -57,6 +64,10 @@
             <h3>Second Place Prize (Initial $20 in BTC)</h3>
             <p>The second-place finisher gets the BTC equivalent of the initial $20 buy-in.</p>
             <p><strong>Current Value:</strong> <span class="prize-value" id="second-place-prize-value">Loading...</span></p>
+        </div>
+
+        <div class="quote-box">
+            <p id="quote-display"></p>
         </div>
     </div>
 
@@ -100,8 +111,38 @@
             }
         }
 
-        // Call the function to fetch the price when the page loads
+        // --- Random Quote Generation ---
+        const quotes = [
+            "The stock market is a device for transferring money from the impatient to the patient. – Warren Buffett",
+            "It's not about how much money you make, but how much you keep, how hard it works for you, and how many generations you keep it for. – Robert Kiyosaki",
+            "Bitcoin is a technological tour de force. – Bill Gates",
+            "If you want excitement, take $800 and go to Las Vegas. – Paul Samuelson",
+            "You make most of your money in a bear market, you just don't realize it at the time. – Shelby Cullom Davis",
+            "Doubt kills more dreams than failure ever will. – Suzy Kassem",
+            "Don't let yesterday take up too much of today. – Will Rogers",
+            "There is no greater threat to league integrity than an uncommitted owner. – Ruxin",
+            "Money ain't got no owners. Only spenders. – Omar Little",
+            "You cannot worry about the playoffs if you do not make the playoffs. – Omar Little",
+            "The beautiful thing about fantasy football is that even a bad team can get a win. It just takes a little bit of magic. – Anonymous Fantasy Football Proverb",
+            "Winning isn't everything, but wanting to win is. – Vince Lombardi",
+            "The best way to predict the future is to create it. – Peter Drucker",
+            "The whole secret of a successful life is to find out what is one's destiny to do, and then do it. – Henry Ford",
+            "The journey of a thousand miles begins with a single step. – Lao Tzu",
+            "Be fearful when others are greedy and greedy when others are fearful. – Warren Buffett",
+            "Don't be afraid to fail. It's not the end of the world. – Jon Hamm",
+            "Life is like riding a bicycle. To keep your balance, you must keep moving. – Albert Einstein",
+            "Every strike brings me closer to the next home run. – Babe Ruth",
+            "Bitcoin fixes this. – Jordan Peterson"
+        ];
+
+        function displayRandomQuote() {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            document.getElementById('quote-display').innerText = quotes[randomIndex];
+        }
+
+        // Call the functions when the page loads
         fetchBtcPrice();
+        displayRandomQuote();
     </script>
 
 </body>
