@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitcoin Boomers League Prize Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #f7931a; /* Bitcoin orange */
+        }
+        .prize-info {
+            margin-top: 20px;
+            text-align: left;
+        }
+        .prize-value {
+            font-size: 2em;
+            color: #28a745; /* Green for value */
+            font-weight: bold;
+        }
+        .loading {
+            font-style: italic;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Bitcoin Boomers League</h1>
+        <p>Current Prize Pool Value Tracker</p>
+
+        <div class="prize-info">
+            <p><strong>Total Buy-in:</strong> $320.00</p>
+            <p><strong>Initial BTC Price (Draft Day):</strong> $<span id="initial-btc-price">--</span></p>
+            <p><strong>Total BTC in Prize Pool:</strong> <span id="total-btc">--</span> BTC</p>
+            <hr>
+            <h3>First Place Prize (Winner Takes All BTC)</h3>
+            <p>The winner gets the entire BTC prize pool minus the second-place share.</p>
+            <p><strong>Current Value:</strong> <span class="prize-value" id="winner-prize-value">Loading...</span></p>
+            <hr>
+            <h3>Second Place Prize (Initial $20 in BTC)</h3>
+            <p>The second-place finisher gets the BTC equivalent of the initial $20 buy-in.</p>
+            <p><strong>Current Value:</strong> <span class="prize-value" id="second-place-prize-value">Loading...</span></p>
+        </div>
+    </div>
+
+    <script>
+        // *** USER-EDITABLE VARIABLES ***
+        // Update these values once after your league's draft
+        const draftDayBtcPrice = 60000; // Example price: $60,000.00
+        const totalBuyInUSD = 320; // $20 buy-in x 16 people
+        const secondPlaceBuyInUSD = 20; // Single $20 buy-in for second place
+
+        // Calculate the fixed BTC amounts
+        const totalBtcInPool = totalBuyInUSD / draftDayBtcPrice;
+        const secondPlaceBtc = secondPlaceBuyInUSD / draftDayBtcPrice;
+        const winnerBtc = totalBtcInPool - secondPlaceBtc;
+
+        // Display the fixed values on the page
+        document.getElementById('initial-btc-price').innerText = draftDayBtcPrice.toLocaleString('en-US');
+        document.getElementById('total-btc').innerText = totalBtcInPool.toFixed(6);
+
+        // Fetch the current BTC price and update the prize values
+        async function fetchBtcPrice() {
+            const api_url = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd';
+
+            try {
+                const response = await fetch(api_url);
+                const data = await response.json();
+                const currentBtcPrice = data.bitcoin.usd;
+
+                // Calculate current prize values
+                const winnerPrizeValue = winnerBtc * currentBtcPrice;
+                const secondPlacePrizeValue = secondPlaceBtc * currentBtcPrice;
+
+                // Update the HTML
+                document.getElementById('winner-prize-value').innerText = '$' + winnerPrizeValue.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                document.getElementById('second-place-prize-value').innerText = '$' + secondPlacePrizeValue.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+            } catch (error) {
+                console.error('Error fetching BTC price:', error);
+                document.getElementById('winner-prize-value').innerText = 'Error loading value';
+                document.getElementById('second-place-prize-value').innerText = 'Error loading value';
+            }
+        }
+
+        // Call the function to fetch the price when the page loads
+        fetchBtcPrice();
+    </script>
+
+</body>
+</html>
