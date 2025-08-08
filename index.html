@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bitcoin Booters Prize Tracker</title>
+    <title>Bitcoin Booters Pre-Draft Hub</title>
     <!-- Tailwind CSS CDN for modern styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -11,25 +11,6 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
-        }
-        .gain {
-            color: #22c55e; /* Tailwind green-500 */
-        }
-        .loss {
-            color: #ef4444; /* Tailwind red-500 */
-        }
-        /* Custom spinner for loading state */
-        .spinner {
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border-left-color: #f7931a;
-            animation: spin 1s ease infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -40,8 +21,8 @@
         <div class="text-center">
             <!-- Logo size has been reduced using the w-40 Tailwind class -->
             <img src="https://raw.githubusercontent.com/yahmss/bitcoin-boomers-tracker/main/bitcoin-booters.png" alt="Bitcoin Booters Logo" class="mx-auto mb-4 w-40 rounded-lg">
-            <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-2">Bitcoin Booters League</h1>
-            <p class="text-lg text-slate-500 mb-6">Live Prize Tracker</p>
+            <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-2">Bitcoin Booters Pre-Draft Hub</h1>
+            <p class="text-lg text-slate-500 mb-6">Welcome to the league!</p>
         </div>
 
         <!-- Quote of the Day -->
@@ -49,81 +30,48 @@
             <p id="quote-display" class="text-sm">"Loading a wise quote..."</p>
         </div>
 
-        <!-- Countdown Timer -->
-        <div class="text-center bg-red-100 text-red-700 p-3 rounded-lg font-bold text-lg mb-6 shadow-md">
-            <p id="countdown-timer">Loading countdown...</p>
-        </div>
-
-        <!-- Prize and Tracker Info Cards (MOVED TO TOP) -->
+        <!-- Prize and Tracker Info Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <!-- Current Winner Prize Card -->
+            <!-- 1st Place Prize Card -->
             <div class="bg-white p-5 rounded-lg shadow-md border border-slate-200">
-                <span class="block text-sm font-semibold text-slate-500 mb-2">Current Winner Prize:</span>
+                <span class="block text-sm font-semibold text-slate-500 mb-2">1st Place Prize Pool:</span>
                 <div class="flex items-center justify-between mb-2">
-                    <div id="winner-prize-value" class="text-3xl font-bold text-slate-900">Loading...</div>
-                    <div id="winner-loading" class="spinner"></div>
-                </div>
-                <!-- Stock-like tracker display -->
-                <div class="flex justify-between items-center text-sm">
-                    <div class="flex flex-col">
-                        <span class="text-slate-500">Initial:</span>
-                        <span id="initial-winner-prize" class="font-medium text-slate-800">--</span>
-                    </div>
-                    <div class="flex flex-col text-right">
-                        <span id="winner-change-value" class="font-medium">--</span>
-                    </div>
+                    <div id="winner-prize-value" class="text-3xl font-bold text-slate-900">$300.00</div>
                 </div>
             </div>
 
-            <!-- Current 2nd Place Prize Card -->
+            <!-- 2nd Place Prize Card -->
             <div class="bg-white p-5 rounded-lg shadow-md border border-slate-200">
-                <span class="block text-sm font-semibold text-slate-500 mb-2">Current 2nd Place Prize:</span>
+                <span class="block text-sm font-semibold text-slate-500 mb-2">2nd Place Prize Pool:</span>
                 <div class="flex items-center justify-between mb-2">
-                    <div id="second-place-prize-value" class="text-3xl font-bold text-slate-900">Loading...</div>
-                    <div id="second-loading" class="spinner"></div>
-                </div>
-                <!-- Stock-like tracker display -->
-                <div class="flex justify-between items-center text-sm">
-                    <div class="flex flex-col">
-                        <span class="text-slate-500">Initial:</span>
-                        <span id="initial-second-place-prize" class="font-medium text-slate-800">--</span>
-                    </div>
-                    <div class="flex flex-col text-right">
-                        <span id="second-place-change-value" class="font-medium">--</span>
-                    </div>
+                    <div id="second-place-prize-value" class="text-3xl font-bold text-slate-900">$20.00</div>
                 </div>
             </div>
         </div>
 
-        <!-- New section for consolidated league performance and time since investment (MOVED TO BOTTOM) -->
+        <!-- New section for consolidated league performance and time since investment -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <!-- Overall League Performance Card -->
             <div class="bg-blue-100 p-5 rounded-lg shadow-md border border-blue-200 col-span-1 md:col-span-2">
                 <div class="flex justify-between items-center mb-2">
-                    <span class="block text-xl font-bold text-blue-800">Overall League Performance</span>
-                    <span id="league-gain-percent" class="text-xl font-bold">--</span>
+                    <span class="block text-xl font-bold text-blue-800">League Buy-in Status</span>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
                     <div>
-                        <span class="text-blue-600 font-semibold">Initial BTC Price:</span>
-                        <span id="initial-btc-price" class="font-bold text-blue-900 ml-1">--</span>
+                        <span class="text-blue-600 font-semibold">Total Buy-in Collected:</span>
+                        <span id="total-buy-in" class="font-bold text-blue-900 ml-1">$320.00</span>
                     </div>
                     <div class="text-left sm:text-right">
-                        <span class="text-blue-600 font-semibold">Total BTC in Pool:</span>
-                        <span id="total-btc" class="font-bold text-blue-900 ml-1">--</span>
+                        <span class="text-blue-600 font-semibold">Number of Teams:</span>
+                        <span id="total-teams" class="font-bold text-blue-900 ml-1">16</span>
                     </div>
                 </div>
-            </div>
-            <!-- Time Since Investment Card -->
-            <div class="bg-white p-5 rounded-lg shadow-md border border-slate-200">
-                <span class="block text-sm font-semibold text-slate-500 mb-2">Time Since Investment:</span>
-                <div id="time-since-investment" class="text-lg font-bold text-slate-900">--</div>
             </div>
         </div>
 
         <!-- Last Updated Timestamp -->
         <div class="text-center mt-6 text-sm text-slate-500">
-            <p id="last-updated">Last Updated: --</p>
+            <p>Ready for draft once the date is set!</p>
         </div>
 
         <!-- Button to open the rules modal -->
@@ -198,215 +146,46 @@
     </div>
 
     <script>
-        // *** USER-EDITABLE VARIABLES ***
-        // These are the initial values for your league.
-        const draftDayBtcPrice = ;
-        const totalBuyInUSD = 320; // Total USD collected
-        const secondPlaceBuyInUSD = 20; // USD allocated to 2nd place
-        
-        // This is the date the league started. You can change this to your specific date.
-        const draftDay = new Date('October 24, 2025 10:00:00 EST');
-
-        // Calculate the initial BTC amounts based on the draft day price
-        const totalBtcInPool = totalBuyInUSD / draftDayBtcPrice;
-        const secondPlaceBtc = secondPlaceBuyInUSD / draftDayBtcPrice;
-        const winnerBtc = totalBtcInPool - secondPlaceBtc;
-
-        // Calculate the initial USD value of each prize for comparison
-        const initialWinnerPrizeUSD = winnerBtc * draftDayBtcPrice;
-        const initialSecondPlacePrizeUSD = secondPlaceBtc * draftDayBtcPrice;
-
-        // Display the static initial info
-        document.getElementById('initial-btc-price').innerText = '$' + draftDayBtcPrice.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-        document.getElementById('total-btc').innerText = totalBtcInPool.toFixed(6) + ' BTC';
-        document.getElementById('initial-winner-prize').innerText = '$' + initialWinnerPrizeUSD.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-        document.getElementById('initial-second-place-prize').innerText = '$' + initialSecondPlacePrizeUSD.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        // --- USER-EDITABLE VARIABLES ---
+        // Static prize values based on the buy-in
+        const totalBuyInUSD = 320; // Total USD collected from 16 teams at $20 each
+        const winnerPrizeUSD = 300;
+        const secondPlacePrizeUSD = 20;
 
         // List of quotes to display randomly
         const quotes = [
-            // Bitcoin & Investing
-            "The stock market is a device for transferring money from the impatient to the patient. – Warren Buffett",
-            "Bitcoin is a technological tour de force. – Bill Gates",
-            "Be fearful when others are greedy and greedy when others are fearful. – Warren Buffett",
-            "It's not about timing the market; it's about time in the market.",
-            "Rule No. 1: Never lose money. Rule No. 2: Never forget rule No. 1. – Warren Buffett",
-            "Bitcoin fixes this. – Jordan Peterson",
-            "Investing should be more like watching paint dry or watching grass grow. – Paul Samuelson",
-            "The art of investment is the discipline of inaction in the absence of a good opportunity. – Li Lu",
-            "You make most of your money in a bear market, you just don't realize it at the time. – Shelby Cullom Davis",
-            "The biggest risk of all is not taking one. – Mellody Hobson",
-            "The world is full of foolish gamblers and they will not do as well as the patient investors. – Charlie Munger",
-            "Price is what you pay. Value is what you get. – Warren Buffett",
-            "Patience is a superpower. – Jake Rosser",
-            "In the short run, the market is a voting machine, but in the long run it is a weighing machine. – Benjamin Graham",
-            "Success isn't measured by money or power or social rank. Success is measured by your discipline and inner peace. – Mike Ditka",
-            "Never invest in a business you cannot understand. – Warren Buffett",
-            
-            // Fantasy Football & Competition
+            // General Pre-Draft & Fantasy Football
+            "The draft is where championships are won. Or lost. No pressure. – Deebs",
+            "There is no greater threat to league integrity than an uncommitted owner. – Ruxin, from 'The League'",
             "God bless fantasy football. There are many things a man can do with his time… this is better than those things. – Pete, from 'The League'",
             "You cannot worry about the playoffs if you do not make the playoffs. – Omar Little",
-            "There is no greater threat to league integrity than an uncommitted owner. – Ruxin, from 'The League'",
             "In fantasy football, the most important player is the one on your bench with the most upside.",
             "Winning isn't everything, but wanting to win is. – Vince Lombardi",
-            "Winning isn't getting ahead of others. It's getting ahead of yourself. – Roger Staubach",
-            "You don't need more '40-degree days' in your fantasy lineup. – Stringer Bell",
             "It's not whether you get knocked down, it's whether you get back up. – Vince Lombardi",
-            "Nobody who ever gave his best regretted it. – George S. Halas",
-            "Effort will never be questioned. – Jalen Hurts",
             "A champion is simply someone who did not give up when they wanted to. – Tom Landry",
             
-            // Life & Motivation
-            "Doubt kills more dreams than failure ever will. – Suzy Kassem",
-            "The best way to predict the future is to create it. – Peter Drucker",
-            "The journey of a thousand miles begins with a single step. – Lao Tzu",
-            "Every strike brings me closer to the next home run. – Babe Ruth",
-            "It's not the will to win that matters. It's the will to prepare to win that matters. – Paul 'Bear' Bryant",
-            "The only place success comes before work is in the dictionary. – Vince Lombardi",
-            "You can't be that kid standing at the top of the waterslide, overthinking it. You have to go down the chute. – Tina Fey",
-            "Success is stumbling from failure to failure with no loss of enthusiasm. – Winston Churchill",
-            "Our greatest weakness lies in giving up. The most certain way to succeed is always to try just one more time. – Thomas A. Edison"
+            // Han quotes (Roller Hockey/Beer Leaguer)
+            "No, I can't come over. It's a Tuesday and I've got a beer league game. Gotta work on that slapshot. – Han",
+            "The best part of winning is the post-game beer. The worst part of losing is also the post-game beer, but you gotta do it. – Han",
+            "If you can't hit the net with a puck, you're not trying hard enough. If you can't hit the goalie, you're not trying hard enough. – Han",
+
+            // Ruslan quotes (Roller Hockey/Beer Leaguer)
+            "A good pass is worth a hundred stick-checks. A great goal is worth a thousand. – Ruslan",
+            "The beer league rink is my second home. The bar after is my first. – Ruslan",
+            "Yeah, I'm a little sore. I took a puck to the shin last night. That's just part of the game, baby. – Ruslan",
+
+            // Deebs quotes (Trading Cards, Blackjack, Kids' Books)
+            "Writing a kids' book is like opening a pack of cards; you never know what you'll get, but it's always fun. – Deebs",
+            "Never split a pair of tens. It's a fundamental rule of blackjack and a great metaphor for life. – Deebs",
+            "The value of a rare card isn't just in its price, but in the story it tells. Just like a great book. – Deebs",
+            "You have to know when to hold 'em and when to fold 'em, both in cards and in life. – Deebs",
+            "My kids' books are my trading cards for the world. They're rare, special, and meant to be shared. – Deebs"
         ];
+
         // Function to display a random quote
         function displayRandomQuote() {
             const randomIndex = Math.floor(Math.random() * quotes.length);
             document.getElementById('quote-display').innerText = quotes[randomIndex];
-        }
-
-        // Function to update the prize display with stock-like ticker info
-        function updatePrizeTicker(currentValue, initialValue, valueElementId, changeElementId, loadingElementId) {
-            const valueDisplay = document.getElementById(valueElementId);
-            const changeDisplay = document.getElementById(changeElementId);
-            const loadingSpinner = document.getElementById(loadingElementId);
-
-            // Hide the loading spinner
-            loadingSpinner.style.display = 'none';
-
-            const changeUSD = currentValue - initialValue;
-
-            // Format values
-            const formattedCurrentValue = '$' + currentValue.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-            const formattedChangeUSD = (changeUSD >= 0 ? '+' : '') + '$' + Math.abs(changeUSD).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-
-            // Update UI with formatted values
-            valueDisplay.innerText = formattedCurrentValue;
-            changeDisplay.innerText = formattedChangeUSD;
-
-            // Apply color based on gain/loss
-            if (changeUSD > 0) {
-                changeDisplay.classList.add('gain');
-                changeDisplay.classList.remove('loss');
-            } else if (changeUSD < 0) {
-                changeDisplay.classList.add('loss');
-                changeDisplay.classList.remove('gain');
-            } else {
-                changeDisplay.classList.remove('gain', 'loss');
-            }
-        }
-        
-        // Function to update the overall performance card
-        function updateOverallPerformance(currentBtcPrice) {
-            const leagueGainPercentDisplay = document.getElementById('league-gain-percent');
-            const changePercent = ((currentBtcPrice - draftDayBtcPrice) / draftDayBtcPrice) * 100;
-            const formattedChangePercent = (changePercent >= 0 ? '+' : '') + changePercent.toFixed(2) + '%';
-            
-            leagueGainPercentDisplay.innerText = formattedChangePercent;
-            
-            if (changePercent > 0) {
-                leagueGainPercentDisplay.classList.add('gain');
-                leagueGainPercentDisplay.classList.remove('loss');
-            } else if (changePercent < 0) {
-                leagueGainPercentDisplay.classList.add('loss');
-                leagueGainPercentDisplay.classList.remove('gain');
-            } else {
-                leagueGainPercentDisplay.classList.remove('gain', 'loss');
-            }
-        }
-        
-        // Function to handle the "time since investment" counter
-        function updateTimeSinceInvestment() {
-            const now = new Date();
-            const distance = now - draftDay;
-            
-            if (distance < 0) {
-                document.getElementById('time-since-investment').innerText = "Investment starts soon!";
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById('time-since-investment').innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-        }
-
-
-        // Main function to fetch the BTC price and update all prize info
-        async function fetchAndRenderData() {
-            const api_url = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd';
-            try {
-                // Show loading spinners before fetching
-                document.getElementById('winner-loading').style.display = 'block';
-                document.getElementById('second-loading').style.display = 'block';
-
-                const response = await fetch(api_url);
-                const data = await response.json();
-                const currentBtcPrice = data.bitcoin.usd;
-
-                // Calculate current prize values in USD
-                const winnerPrizeValue = winnerBtc * currentBtcPrice;
-                const secondPlacePrizeValue = secondPlaceBtc * currentBtcPrice;
-                
-                // Update the overall performance card first
-                updateOverallPerformance(currentBtcPrice);
-
-                // Update the winner prize card
-                updatePrizeTicker(
-                    winnerPrizeValue,
-                    initialWinnerPrizeUSD,
-                    'winner-prize-value',
-                    'winner-change-value',
-                    'winner-loading'
-                );
-
-                // Update the 2nd place prize card
-                updatePrizeTicker(
-                    secondPlacePrizeValue,
-                    initialSecondPlacePrizeUSD,
-                    'second-place-prize-value',
-                    'second-place-change-value',
-                    'second-loading'
-                );
-
-                // Update the last updated timestamp
-                const now = new Date();
-                document.getElementById('last-updated').innerText = `Last Updated: ${now.toLocaleTimeString()}`;
-
-            } catch (error) {
-                console.error('Error fetching BTC price:', error);
-                document.getElementById('winner-prize-value').innerText = 'Error loading';
-                document.getElementById('second-place-prize-value').innerText = 'Error loading';
-            }
-        }
-
-        // Function to handle the championship countdown
-        const championshipDate = new Date('January 4, 2026 23:59:59 EST');
-        function startCountdown() {
-            const now = new Date().getTime();
-            const distance = championshipDate - now;
-
-            if (distance < 0) {
-                clearInterval(countdownInterval);
-                document.getElementById('countdown-timer').innerText = "CHAMPIONSHIP HAS ENDED!";
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById('countdown-timer').innerText = `Time left: ${days}d ${hours}h ${minutes}m ${seconds}s`;
         }
         
         // --- Modal Logic ---
@@ -433,14 +212,9 @@
 
         // Initial calls on page load
         displayRandomQuote();
-        fetchAndRenderData();
-        startCountdown();
-        updateTimeSinceInvestment();
-
-        // Set intervals to refresh data
-        const countdownInterval = setInterval(startCountdown, 1000);
-        const timeSinceInvestmentInterval = setInterval(updateTimeSinceInvestment, 1000); // New interval
-        const dataRefreshInterval = setInterval(fetchAndRenderData, 60000); // Refresh prize data every 60 seconds
+        document.getElementById('winner-prize-value').innerText = '$' + winnerPrizeUSD.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('second-place-prize-value').innerText = '$' + secondPlacePrizeUSD.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('total-buy-in').innerText = '$' + totalBuyInUSD.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
     </script>
 
 </body>
