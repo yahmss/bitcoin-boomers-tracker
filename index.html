@@ -138,6 +138,14 @@
                         <div id="purchase-date" class="font-bold text-blue-900 sm:text-right">--</div>
                     </div>
                      <div class="flex flex-col sm:flex-row justify-between sm:items-center bg-white/60 p-3 rounded-md">
+                        <div class="flex items-center font-semibold text-blue-700 mb-1 sm:mb-0"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"><path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" /><path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd" /></svg>Investment:</div>
+                        <div class="font-bold text-blue-900 sm:text-right">$314.40</div>
+                    </div>
+                     <div class="flex flex-col sm:flex-row justify-between sm:items-center bg-white/60 p-3 rounded-md">
+                        <div class="flex items-center font-semibold text-blue-700 mb-1 sm:mb-0"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"><path d="M2.25 3.75A1.75 1.75 0 014 2h12a1.75 1.75 0 011.75 1.75v1.5A1.75 1.75 0 0116 7h-1.5a.75.75 0 000 1.5H16a1.75 1.75 0 011.75 1.75v1.5A1.75 1.75 0 0116 13h-1.5a.75.75 0 000 1.5H16a1.75 1.75 0 011.75 1.75v1.5A1.75 1.75 0 0114 18H4a1.75 1.75 0 01-1.75-1.75v-1.5A1.75 1.75 0 014 13h1.5a.75.75 0 000-1.5H4a1.75 1.75 0 01-1.75-1.75v-1.5A1.75 1.75 0 014 7h1.5a.75.75 0 000-1.5H4A1.75 1.75 0 012.25 3.75z" /></svg>Fees Paid:</div>
+                        <div class="font-bold text-blue-900 sm:text-right">$5.60</div>
+                    </div>
+                     <div class="flex flex-col sm:flex-row justify-between sm:items-center bg-white/60 p-3 rounded-md">
                         <div class="flex items-center font-semibold text-blue-700 mb-1 sm:mb-0"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"><path d="M8.433 7.418c.158-.103.346-.196.567-.267v1.698a2.5 2.5 0 004 0V7.151c.22.071.409.164.567.267C13.863 7.84 14 8.252 14 8.684V13.5a.5.5 0 01-.5.5h-5a.5.5 0 01-.5-.5V8.684c0-.432.137-.844.433-1.266zM6 12h8V8h-8v4z"/><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.5 9a.5.5 0 000 1h11a.5.5 0 000-1h-11z" clip-rule="evenodd" /></svg>Price at Purchase:</div>
                         <div id="purchase-price" class="font-bold text-blue-900 sm:text-right">--</div>
                     </div>
@@ -300,7 +308,55 @@
             function injectModalContent() {
                 const modalHTML = `<div class="bg-white p-6 rounded-lg shadow-xl max-w-2xl w-full max-h-full overflow-y-auto relative">
                     <h2 class="text-2xl font-bold mb-4 text-slate-900">Bitcoin Booters League Rules</h2>
-                    <!-- ... All the rules list items would go here ... -->
+                    <div class="space-y-4 text-sm text-slate-700">
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-800 mb-1">General:</h3>
+                            <ul class="list-disc list-inside space-y-1 ml-4">
+                                <li><strong>League Size:</strong> 16 teams.</li>
+                                <li><strong>Buy-in:</strong> $20 per team, due before the draft.</li>
+                                <li><strong>Prizes:</strong> The total pot will be converted to Bitcoin.</li>
+                                <ul class="list-disc list-inside ml-8 space-y-1">
+                                    <li>1st Place: Wins the entire Bitcoin pot minus the amount of Bitcoin equal to the original $20 buy-in.</li>
+                                    <li>2nd Place: Wins the Bitcoin amount equivalent to the original $20 buy-in.</li>
+                                </ul>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-800 mb-1">Roster:</h3>
+                            <ul class="list-disc list-inside space-y-1 ml-4">
+                                <li><strong>Roster Size:</strong> 5 total players.</li>
+                                <li><strong>Positions:</strong> 1 QB, 1 RB, 1 WR, 1 TE, 1 K.</li>
+                                <li><strong>Bench/IR:</strong> No bench or IR spots.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-800 mb-1">Transactions & Free Agents:</h3>
+                            <ul class="list-disc list-inside space-y-1 ml-4">
+                                <li><strong>Lineup Changes:</strong> Lock individually at scheduled gametime.</li>
+                                <li><strong>Waiver System:</strong> Waivers are used.</li>
+                                <li><strong>Waiver Order:</strong> Resets each week to inverse order of standings.</li>
+                                <li><strong>Acquisition Limit:</strong> No limit on pickups and drops for the season.</li>
+                                <li><strong>Undroppable Players:</strong> The ESPN undroppable list is turned off.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-800 mb-1">Scoring (Head-to-Head Points, Point Per Reception):</h3>
+                            <ul class="list-disc list-inside space-y-1 ml-4">
+                                <li><strong>Field Goals (50-59 yards):</strong> 30 points (overriding the standard 4 points)</li>
+                                <li><strong>Field Goals (60+ yards):</strong> 30 points (overriding the standard 5 points)</li>
+                                <li><strong>Receptions:</strong> 1 point per reception (This is a PPR league format)</li>
+                                <li>All other scoring categories are standard ESPN defaults.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-800 mb-1">Playoffs:</h3>
+                            <ul class="list-disc list-inside space-y-1 ml-4">
+                                <li><strong>Playoff Teams:</strong> 8 teams make the playoffs.</li>
+                                <li><strong>Playoff Seeding Tie Breaker:</strong> Total Points For.</li>
+                                <li><strong>Playoff Matchups:</strong> 1 week per playoff round.</li>
+                            </ul>
+                        </div>
+                    </div>
                     <button id="close-rules-btn" class="absolute top-4 right-4 text-slate-500 hover:text-slate-800">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                     </button>
@@ -322,5 +378,6 @@
     </script>
 </body>
 </html>
+
 
 
