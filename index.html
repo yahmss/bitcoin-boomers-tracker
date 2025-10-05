@@ -94,13 +94,16 @@
             <div class="mb-5">
                 <div class="flex justify-between text-xs font-medium text-slate-500 mb-1">
                     <span>Draft Day</span>
-                    <span id="current-week-text" class="font-bold">Week 1</span>
-                    <span>Championship</span>
+                    <span class="font-bold">Playoffs (Week 14)</span>
+                    <span>Championship (Week 17)</span>
                 </div>
                 <div class="w-full bg-slate-200 rounded-full h-4 shadow-inner">
                     <div id="season-progress-bar" class="bg-gradient-to-r from-cyan-500 to-blue-500 h-4 rounded-full transition-all duration-500 ease-out" style="width: 0%;"></div>
                 </div>
-                <div class="text-center text-sm font-semibold text-slate-600 mt-2" id="season-progress-text">0% Complete</div>
+                <div class="flex justify-between text-sm font-semibold text-slate-600 mt-2">
+                    <span id="season-status-text">Calculating...</span>
+                    <span id="season-progress-text">0% Complete</span>
+                </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
@@ -183,7 +186,7 @@
             const winnerPrizeBTC = totalBTCPurchased - secondPlacePrizeBTC;
 
             const elements = {
-                quoteDisplay: document.getElementById('quote-display'), lastUpdated: document.getElementById('last-updated'), livePotValue: document.getElementById('live-pot-value'), gainLoss: document.getElementById('gain-loss'), percentChange: document.getElementById('percent-change'), winnerPrizeValue: document.getElementById('winner-prize-value'), winnerPrizeBtc: document.getElementById('winner-prize-btc'), secondPlacePrizeValue: document.getElementById('second-place-prize-value'), secondPlacePrizeBtc: document.getElementById('second-place-prize-btc'), seasonProgressBar: document.getElementById('season-progress-bar'), seasonProgressText: document.getElementById('season-progress-text'), seasonCountdown: document.getElementById('season-countdown'), investmentTimer: document.getElementById('investment-timer'), purchaseDate: document.getElementById('purchase-date'), purchasePrice: document.getElementById('purchase-price'), totalBtc: document.getElementById('total-btc'), openRulesBtn: document.getElementById('open-rules-btn'), rulesModal: document.getElementById('rules-modal'), currentWeekText: document.getElementById('current-week-text'),
+                quoteDisplay: document.getElementById('quote-display'), lastUpdated: document.getElementById('last-updated'), livePotValue: document.getElementById('live-pot-value'), gainLoss: document.getElementById('gain-loss'), percentChange: document.getElementById('percent-change'), winnerPrizeValue: document.getElementById('winner-prize-value'), winnerPrizeBtc: document.getElementById('winner-prize-btc'), secondPlacePrizeValue: document.getElementById('second-place-prize-value'), secondPlacePrizeBtc: document.getElementById('second-place-prize-btc'), seasonProgressBar: document.getElementById('season-progress-bar'), seasonProgressText: document.getElementById('season-progress-text'), seasonCountdown: document.getElementById('season-countdown'), investmentTimer: document.getElementById('investment-timer'), purchaseDate: document.getElementById('purchase-date'), purchasePrice: document.getElementById('purchase-price'), totalBtc: document.getElementById('total-btc'), openRulesBtn: document.getElementById('open-rules-btn'), rulesModal: document.getElementById('rules-modal'), seasonStatusText: document.getElementById('season-status-text'),
             };
             
             const formatCurrency = (amount) => '$' + amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -191,7 +194,7 @@
             const padZero = (num) => num.toString().padStart(2, '0');
 
             function updateTimersAndProgress() {
-                const now = new Date(); // This is the fix: use the actual current time.
+                const now = new Date();
 
                 // Investment Timer
                 let investmentDiff = now - investmentStartDate;
@@ -222,12 +225,23 @@
                 elements.seasonProgressBar.style.width = `${progressPercentage}%`;
                 elements.seasonProgressText.textContent = `${progressPercentage.toFixed(2)}% Complete`;
                 
+                // --- UPDATED LOGIC FOR SEASON STATUS ---
                 if (elapsedSeasonDuration > 0) {
+                    const regularSeasonWeeks = 13;
+                    const totalSeasonWeeks = 17;
                     const weeksElapsed = Math.floor(elapsedSeasonDuration / (1000 * 60 * 60 * 24 * 7));
                     const currentWeek = weeksElapsed + 1;
-                    elements.currentWeekText.textContent = currentWeek <= 17 ? `Week ${currentWeek}` : "Playoffs!"; // Adjusted for Week 17
+                    
+                    if (currentWeek > totalSeasonWeeks) {
+                        elements.seasonStatusText.textContent = "Season Complete";
+                    } else if (currentWeek > regularSeasonWeeks) {
+                        const playoffRound = currentWeek - regularSeasonWeeks;
+                        elements.seasonStatusText.textContent = `Playoffs - Round ${playoffRound}`;
+                    } else {
+                        elements.seasonStatusText.textContent = `Regular Season - Week ${currentWeek}`;
+                    }
                 } else {
-                    elements.currentWeekText.textContent = "Pre-Season";
+                    elements.seasonStatusText.textContent = "Pre-Season";
                 }
             }
 
@@ -275,84 +289,84 @@
                 injectModalContent();
             }
 
-const quotes = [
-            "The draft is where championships are won. Or lost. No pressure. – Deebs",
-            "There is no greater threat to league integrity than an uncommitted owner. – Ruxin, from 'The League'",
-            "God bless fantasy football. There are many things a man can do with his time… this is better than those things. – Pete, from 'The League'",
-            "You cannot worry about the playoffs if you do not make the playoffs. – Omar Little",
-            "In fantasy football, the most important player is the one on your bench with the most upside.",
-            "Winning isn't everything, but wanting to win is. – Vince Lombardi",
-            "It's not whether you get knocked down, it's whether you get up. – Vince Lombardi",
-            "A champion is simply someone who did not give up when they wanted to. – Tom Landry",
-            "No, I can't come over. It's a Tuesday and I've got a beer league game. Gotta work on that slapshot. – Han",
-            "The best part of winning is the post-game beer. The worst part of losing is also the post-game beer, but you gotta do it. – Han",
-            "If you can't hit the net with a puck, you're not trying hard enough. If you can't hit the goalie, you're not trying hard enough. – Han",
-            "A good pass is worth a hundred stick-checks. A great goal is worth a thousand. – Ruslan",
-            "The beer league rink is my second home. The bar after is my first. – Ruslan",
-            "Yeah, I'm a little sore. I took a puck to the shin last night. That's just part of the game, baby. – Ruslan",
-            "Writing a kids' book is like opening a pack of cards; you never know what you'll get, but it's always fun. – Deebs",
-            "Never split a pair of tens. It's a fundamental rule of blackjack and a great metaphor for life. – Deebs",
-            "The value of a rare card isn't just in its price, but in the story it tells. Just like a great book. – Deebs",
-            "You have to know when to hold 'em and when to fold 'em, both in cards and in life. – Deebs",
-            "My kids' books are my trading cards for the world. They're rare, special, and meant to be shared. – Deebs",
+            const quotes = [
+                "The draft is where championships are won. Or lost. No pressure. – Deebs",
+                "There is no greater threat to league integrity than an uncommitted owner. – Ruxin, from 'The League'",
+                "God bless fantasy football. There are many things a man can do with his time… this is better than those things. – Pete, from 'The League'",
+                "You cannot worry about the playoffs if you do not make the playoffs. – Omar Little",
+                "In fantasy football, the most important player is the one on your bench with the most upside.",
+                "Winning isn't everything, but wanting to win is. – Vince Lombardi",
+                "It's not whether you get knocked down, it's whether you get up. – Vince Lombardi",
+                "A champion is simply someone who did not give up when they wanted to. – Tom Landry",
+                "No, I can't come over. It's a Tuesday and I've got a beer league game. Gotta work on that slapshot. – Han",
+                "The best part of winning is the post-game beer. The worst part of losing is also the post-game beer, but you gotta do it. – Han",
+                "If you can't hit the net with a puck, you're not trying hard enough. If you can't hit the goalie, you're not trying hard enough. – Han",
+                "A good pass is worth a hundred stick-checks. A great goal is worth a thousand. – Ruslan",
+                "The beer league rink is my second home. The bar after is my first. – Ruslan",
+                "Yeah, I'm a little sore. I took a puck to the shin last night. That's just part of the game, baby. – Ruslan",
+                "Writing a kids' book is like opening a pack of cards; you never know what you'll get, but it's always fun. – Deebs",
+                "Never split a pair of tens. It's a fundamental rule of blackjack and a great metaphor for life. – Deebs",
+                "The value of a rare card isn't just in its price, but in the story it tells. Just like a great book. – Deebs",
+                "You have to know when to hold 'em and when to fold 'em, both in cards and in life. – Deebs",
+                "My kids' books are my trading cards for the world. They're rare, special, and meant to be shared. – Deebs",
 
-            // New Quotes Added Below
-            
-            // Yahms - Sim Racing
-            "It's not just a game. When you nail the apex at Spa by a millimeter, that's real. My heart rate says so. – Yahms",
-            "Tire degradation is a cruel mistress. You can have the perfect setup, but if you push too hard on lap 5, your race is over by lap 15. – Yahms",
-            "Forget the real world. In the sim, I can take a McLaren F1 car through the Corkscrew at Laguna Seca. That's a good Tuesday night. – Yahms",
+                // New Quotes Added Below
+                
+                // Yahms - Sim Racing
+                "It's not just a game. When you nail the apex at Spa by a millimeter, that's real. My heart rate says so. – Yahms",
+                "Tire degradation is a cruel mistress. You can have the perfect setup, but if you push too hard on lap 5, your race is over by lap 15. – Yahms",
+                "Forget the real world. In the sim, I can take a McLaren F1 car through the Corkscrew at Laguna Seca. That's a good Tuesday night. – Yahms",
 
-            // Mason - Roller Hockey & Advanced Strats
-            "People see a 2-on-1 and think it's a simple pass or shoot. I see a high-percentage shot from the weak-side one-timer if the D commits too early. It's chess, not checkers. – Mason",
-            "The key to a good power play isn't just movement, it's about creating overlapping threats. Make the goalie's head spin. – Mason",
-            "Yeah, you can be fast, but if your positioning is off by six inches, you've already lost the play. It's all about the angles. – Mason",
+                // Mason - Roller Hockey & Advanced Strats
+                "People see a 2-on-1 and think it's a simple pass or shoot. I see a high-percentage shot from the weak-side one-timer if the D commits too early. It's chess, not checkers. – Mason",
+                "The key to a good power play isn't just movement, it's about creating overlapping threats. Make the goalie's head spin. – Mason",
+                "Yeah, you can be fast, but if your positioning is off by six inches, you've already lost the play. It's all about the angles. – Mason",
 
-            // Brendon - Brendos Lacrosse Pockets
-            "A stick is an extension of the player. A pocket from Brendos Lacrosse Pockets? That's the soul. – Brendon",
-            "Anyone can pull a string through a sidewall hole. The art is in the tension, the channel, the release. That's what separates a good pocket from a great one. – Brendon",
-            "They say it's the archer, not the arrow. I say a great archer deserves a perfectly fletched arrow. Give me that head, I'll make it sing. – Brendon",
+                // Brendon - Brendos Lacrosse Pockets
+                "A stick is an extension of the player. A pocket from Brendos Lacrosse Pockets? That's the soul. – Brendon",
+                "Anyone can pull a string through a sidewall hole. The art is in the tension, the channel, the release. That's what separates a good pocket from a great one. – Brendon",
+                "They say it's the archer, not the arrow. I say a great archer deserves a perfectly fletched arrow. Give me that head, I'll make it sing. – Brendon",
 
-            // Zappo - Fantasy Football, Pokémon, Valorant
-            "Your first-round pick wins you headlines. Your last-round sleeper and waiver wire pickups win you championships. – Zappo",
-            "Everyone chases the Charizard, but the real value is in that mint condition, first-edition Psyduck. Know your market. – Zappo",
-            "Aim is temporary, game sense is forever. If you don't know the rotation, your fancy skin won't save you. – Zappo",
-            "You gotta manage your team's economy in Valorant, your bench in fantasy, and your PSA grades in Pokémon. It's all resource management. – Zappo",
+                // Zappo - Fantasy Football, Pokémon, Valorant
+                "Your first-round pick wins you headlines. Your last-round sleeper and waiver wire pickups win you championships. – Zappo",
+                "Everyone chases the Charizard, but the real value is in that mint condition, first-edition Psyduck. Know your market. – Zappo",
+                "Aim is temporary, game sense is forever. If you don't know the rotation, your fancy skin won't save you. – Zappo",
+                "You gotta manage your team's economy in Valorant, your bench in fantasy, and your PSA grades in Pokémon. It's all resource management. – Zappo",
 
-            // Bricen - Snowboarding
-            "Don't fight the mountain, dance with it. Let your edges do the talking and the fall line be your guide. – Bricen",
-            "The best snowboard tip? Bend your knees more. No, more than that. Keep bending. There you go. – Bricen",
-            "A perfect powder day is better than a winning lottery ticket. You can't buy that feeling of floating. – Bricen",
+                // Bricen - Snowboarding
+                "Don't fight the mountain, dance with it. Let your edges do the talking and the fall line be your guide. – Bricen",
+                "The best snowboard tip? Bend your knees more. No, more than that. Keep bending. There you go. – Bricen",
+                "A perfect powder day is better than a winning lottery ticket. You can't buy that feeling of floating. – Bricen",
 
-            // Greene - Teaching
-            "Teaching is 10% knowing your subject and 90% knowing your students. The connection is where the learning happens. – Greene",
-            "The 'Aha!' moment on a student's face is the only performance bonus I'll ever need. – Greene",
-            "Some days you're planting seeds, other days you're just trying to stop them from throwing the dirt at each other. Both are part of the job. – Greene",
+                // Greene - Teaching
+                "Teaching is 10% knowing your subject and 90% knowing your students. The connection is where the learning happens. – Greene",
+                "The 'Aha!' moment on a student's face is the only performance bonus I'll ever need. – Greene",
+                "Some days you're planting seeds, other days you're just trying to stop them from throwing the dirt at each other. Both are part of the job. – Greene",
 
-            // Gaede - NCAA D1 Hockey & Being a Beauty
-            "D1 hockey isn't just faster, it's smarter. Every pass has a purpose, every shift is a chess match. You gotta have the head as much as the hands. – Gaede",
-            "To be a beauty, you gotta have good flow, a better chirp, and always pick up the tab for the tendy. It's the code. – Gaede",
-            "Tip for the young bucks: tape your stick before every game, look good, feel good, play good. It's that simple. – Gaede",
+                // Gaede - NCAA D1 Hockey & Being a Beauty
+                "D1 hockey isn't just faster, it's smarter. Every pass has a purpose, every shift is a chess match. You gotta have the head as much as the hands. – Gaede",
+                "To be a beauty, you gotta have good flow, a better chirp, and always pick up the tab for the tendy. It's the code. – Gaede",
+                "Tip for the young bucks: tape your stick before every game, look good, feel good, play good. It's that simple. – Gaede",
 
-            // Shromes - Farming Simulator, Midwest Life, Dog River
-            "People laugh about Farming Simulator, but there's a real peace in a perfectly plowed digital field. It's like a zen garden, but with more horsepower. – Shromes",
-            "Living in the Midwest teaches you patience. You wait for the seasons to change, you wait for the crops to grow, and you learn to give a two-finger wave to every car you pass. – Shromes",
-            "Fun fact: My dog River can hear a cheese wrapper open from three rooms away. That's a superpower. – Shromes",
+                // Shromes - Farming Simulator, Midwest Life, Dog River
+                "People laugh about Farming Simulator, but there's a real peace in a perfectly plowed digital field. It's like a zen garden, but with more horsepower. – Shromes",
+                "Living in the Midwest teaches you patience. You wait for the seasons to change, you wait for the crops to grow, and you learn to give a two-finger wave to every car you pass. – Shromes",
+                "Fun fact: My dog River can hear a cheese wrapper open from three rooms away. That's a superpower. – Shromes",
 
-            // Brandon - Lacrosse Stringing
-            "It's all about kinetic energy transfer. A well-strung pocket channels the ball's momentum into a single, explosive point on release. It's physics. – Brandon",
-            "The type of mesh, the weave of the sidewall, the number of diamonds—it all changes the whip and hold. You're not just stringing a stick, you're calibrating a precision instrument. – Brandon",
+                // Brandon - Lacrosse Stringing
+                "It's all about kinetic energy transfer. A well-strung pocket channels the ball's momentum into a single, explosive point on release. It's physics. – Brandon",
+                "The type of mesh, the weave of the sidewall, the number of diamonds—it all changes the whip and hold. You're not just stringing a stick, you're calibrating a precision instrument. – Brandon",
 
-            // Parker - Analytics
-            "Don't tell me he 'has heart.' Show me his VORP, his WAR, and his Corsi percentage. Feelings are not data points. – Parker",
-            "Why guess when you can measure? Every decision, from your fantasy draft to your grocery list, can be optimized with the right dataset. – Parker",
-            "Analytics isn't just about numbers; it's about finding the signal in the noise. Most people are just listening to static. – Parker",
+                // Parker - Analytics
+                "Don't tell me he 'has heart.' Show me his VORP, his WAR, and his Corsi percentage. Feelings are not data points. – Parker",
+                "Why guess when you can measure? Every decision, from your fantasy draft to your grocery list, can be optimized with the right dataset. – Parker",
+                "Analytics isn't just about numbers; it's about finding the signal in the noise. Most people are just listening to static. – Parker",
 
-            // Dory - Football Tips & Brewery X Men Insider Info
-            "Offensive line is like a fist. Five fingers working separately are weak, but when they clench together, they can knock anyone down. – Dory",
-            "Forget the 40-yard dash time. Watch how a guy comes out of his breaks. That's where separation is made. – Dory",
-            "Brewery X Men insider info? I saw our goalie eat two entire pizzas before the championship game last season. Some guys are just built different. – Dory"
-        ];
+                // Dory - Football Tips & Brewery X Men Insider Info
+                "Offensive line is like a fist. Five fingers working separately are weak, but when they clench together, they can knock anyone down. – Dory",
+                "Forget the 40-yard dash time. Watch how a guy comes out of his breaks. That's where separation is made. – Dory",
+                "Brewery X Men insider info? I saw our goalie eat two entire pizzas before the championship game last season. Some guys are just built different. – Dory"
+            ];
             elements.quoteDisplay.innerText = quotes[Math.floor(Math.random() * quotes.length)];
 
             function injectModalContent() {
@@ -401,7 +415,7 @@ const quotes = [
                         <div>
                             <h3 class="font-bold text-lg text-slate-800 mb-1">Playoffs:</h3>
                             <ul class="list-disc list-inside space-y-1 ml-4">
-                                <li><strong>Playoff Teams:</strong> 12 teams make the playoffs.</li>
+                                <li><strong>Playoff Teams:</strong> 12 teams (Top 4 seeds get a first-round bye).</li>
                                 <li><strong>Playoff Seeding Tie Breaker:</strong> Total Points For.</li>
                                 <li><strong>Playoff Matchups:</strong> 1 week per playoff round.</li>
                             </ul>
